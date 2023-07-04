@@ -1,4 +1,4 @@
-![alt text](https://imgur.com/ID78tqS)
+![alt text](https://i.imgur.com/ID78tqS.png)
 # Kamii Engine
 
 2D Game engine based on SDL2
