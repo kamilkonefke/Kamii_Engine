@@ -10,7 +10,7 @@ int main(int argc, char** argv)
     SetWindowTitle("Window");
     SetFramerate(120);
 
-    Font* font = LoadFont("Data/font.ttf", 30);
+    Font *font = LoadFont("Data/font.ttf", 30);
 
     while(isRunning)
     {
