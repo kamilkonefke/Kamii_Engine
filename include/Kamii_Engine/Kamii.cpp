@@ -199,7 +199,7 @@ namespace kamii
     }
 
     // Draw sprite with given position, angle, scale and texture
-    void DrawSprite(Vector2D position, float angle, Vector2D scale, Texture *texture)
+    void DrawTexture(Vector2D position, float angle, Vector2D scale, Texture *texture)
     {
         SDL_Rect sourceRect;
         SDL_QueryTexture(texture, NULL, NULL, &sourceRect.w, &sourceRect.h);

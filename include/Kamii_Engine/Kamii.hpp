@@ -59,7 +59,7 @@ namespace kamii
     void ClearColor(Color color);
     void DrawRectangle(Vector2D position, Vector2D scale, Color color);
     void DrawLine(Vector2D start, Vector2D end, Color color);
-    void DrawSprite(Vector2D position, float angle, Vector2D scale, Texture *texture);
+    void DrawTexture(Vector2D position, float angle, Vector2D scale, Texture *texture);
     void DrawText(Vector2D position, std::string text, Color color, Font *font);
     void DrawText(Vector2D position, int text, Color color, Font *font);
     void DrawText(Vector2D position, float text, Color color, Font *font);
