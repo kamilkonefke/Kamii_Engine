@@ -14,7 +14,6 @@ int main(int argc, char** argv)
     {
         HandleEvents();
 
-
         BeginDrawing();
 
         DrawRectangle(Vector2D(0, 0), Vector2D(100, 100), Color(255, 100, 255, 255));

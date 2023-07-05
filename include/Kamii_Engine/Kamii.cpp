@@ -10,6 +10,7 @@ namespace kamii
     void InitializeEngine()
     {
         SDL_Init(SDL_INIT_EVERYTHING);
+        Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
         Mix_Init(MIX_INIT_OGG);
         IMG_Init(IMG_INIT_PNG);
         TTF_Init();
@@ -21,6 +22,7 @@ namespace kamii
     void ShutdownEngine()
     {
         TTF_Quit();
+        Mix_CloseAudio();
         Mix_Quit();
         SDL_Quit();
     }
@@ -162,15 +164,17 @@ namespace kamii
     }
 
     // Load sound from given path
-    void LoadSound()
+    Audio *LoadAudio(const char *path)
     {
         // TODO: HERE
+        Mix_Chunk *audio = Mix_LoadWAV(path);
+        return audio;
     }
 
     // Unload sound
-    void UnloadSound()
+    void UnloadAudio(Audio *audio)
     {
-        // TODO: HERE
+        Mix_FreeChunk(audio);
     }
 
     // Load font from given path and size
@@ -307,13 +311,14 @@ namespace kamii
 
     // Audio functions ----------------------------------------------------------------------------------------------------------------------------------
 
-    void PlaySound()
+    void PlaySound(Audio *audio, float angle, float distance)
     {
-        
+        Mix_SetPosition(-1, angle, distance);
+        Mix_PlayChannel(-1, audio, 0);
     }
 
-    void PlaySoundInLoop()
+    void PlaySoundInLoop(Audio *audio)
     {
-
+        Mix_PlayChannel(-1, audio, -1);
     }
 }

@@ -15,6 +15,7 @@ namespace kamii
 {
     typedef TTF_Font Font;
     typedef SDL_Texture Texture;
+    typedef Mix_Chunk Audio;
 
     class KamiiEngine
     {
@@ -54,8 +55,8 @@ namespace kamii
 
     Texture *LoadTexture(const char *path);
     void UnloadTexture(Texture *texture);
-    void LoadSound();
-    void UnloadSound();
+    Audio *LoadAudio(const char *path);
+    void UnloadAudio(Audio *audio);
     Font *LoadFont(const char *fontPath, int fontSize);
     void UnloadFont(Font *font);
 
@@ -69,8 +70,8 @@ namespace kamii
     void DrawText(Vector2D position, int text, Color color, Font *font);
     void DrawText(Vector2D position, float text, Color color, Font *font);
 
-    void PlaySound();
-    void PlaySoundInLoop();
+    void PlaySound(Audio *audio, float angle, float distance);
+    void PlaySoundInLoop(Audio *audio);
     
     extern bool isRunning;
     extern KamiiEngine* instance;
