@@ -10,25 +10,17 @@ int main(int argc, char** argv)
     SetWindowTitle("Window");
     SetFramerate(120);
 
-    Font *font = LoadFont("Data/font.ttf", 30);
-
     while(isRunning)
     {
-        HandleEvents(); // Game logic here ------------------------------------------------------------------
+        HandleEvents();
 
-        Vector2D mousePosition = GetMousePosition();
 
-        BeginDrawing(); // Draw here ------------------------------------------------------------------------
+        BeginDrawing();
 
-        ClearColor(Color(0, 0, 0, 255));
-
-        std::string mousePosFormatted = "X: " + std::to_string(mousePosition.x) + " Y: " + std::to_string(mousePosition.y);
-        DrawText(Vector2D(0, 0), mousePosFormatted, Color(255, 255, 255 ,255), font);
+        DrawRectangle(Vector2D(0, 0), Vector2D(100, 100), Color(255, 100, 255, 255));
 
         EndDrawing();
     }
-    // Unload textures etc..
-    UnloadFont(font);
 
     CloseWindow();
     ShutdownEngine();

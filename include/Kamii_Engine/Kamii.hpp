@@ -47,6 +47,11 @@ namespace kamii
     bool IsKeyUp(SDL_Keycode keyName);
     bool IsKeyPressed(SDL_Keycode keyName);
 
+    bool IsMouseButtonDown(int buttonIndex);
+    bool IsMouseButtonUp(int buttonIndex);
+    bool IsMouseButtonPressed(int buttonIndex);
+    Vector2D GetMousePosition();
+
     Texture *LoadTexture(const char *path);
     void UnloadTexture(Texture *texture);
     void LoadSound();
@@ -57,7 +62,7 @@ namespace kamii
     void BeginDrawing();
     void EndDrawing();
     void ClearColor(Color color);
-    void DrawRectangle(Vector2D position, Vector2D scale, Color color);
+    void DrawRectangle(Vector2D position, Vector2D size, Color color);
     void DrawLine(Vector2D start, Vector2D end, Color color);
     void DrawTexture(Vector2D position, float angle, Vector2D scale, Texture *texture);
     void DrawText(Vector2D position, std::string text, Color color, Font *font);
@@ -66,8 +71,6 @@ namespace kamii
 
     void PlaySound();
     void PlaySoundInLoop();
-
-    Vector2D GetMousePosition();
     
     extern bool isRunning;
     extern KamiiEngine* instance;

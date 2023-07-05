@@ -112,6 +112,40 @@ namespace kamii
         return false;
     }
 
+    // Mouse functions ----------------------------------------------------------------------------------------------------------------------------------
+
+    // Check if mouse button is down
+    bool IsMouseButtonDown(int buttonIndex)
+    {
+        Uint32 mouseState = SDL_GetMouseState(NULL, NULL);
+        return mouseState & SDL_BUTTON(buttonIndex + 1);
+    }
+
+    // Check if mouse button is up
+    bool IsMouseButtonUp(int buttonIndex)
+    {
+        return !IsMouseButtonDown(buttonIndex);
+    }
+
+    // Check if mouse button is pressed
+    bool IsMouseButtonPressed(int buttonIndex)
+    {
+        static bool previousButtonStates[SDL_BUTTON_X2 + 1] = { false };
+        bool currentButtonState = IsMouseButtonDown(buttonIndex);
+        bool previousButtonState = previousButtonStates[buttonIndex];
+        previousButtonStates[buttonIndex] = currentButtonState;
+
+        return currentButtonState && !previousButtonState;
+    }
+
+    Vector2D GetMousePosition()
+    {
+        SDL_PumpEvents();
+        int x, y;
+        Uint32 mouseState = SDL_GetMouseState(&x, &y);
+        return Vector2D(x, y);
+    }
+
     // Loading and unloading assets ---------------------------------------------------------------------------------------------------------------------
 
     // Load texture from given path
@@ -157,6 +191,8 @@ namespace kamii
     // Start draw function
     void BeginDrawing()
     {
+        ClearColor(Color(0, 0, 0, 255));
+
         SDL_RenderClear(instance->renderer);
     }
 
@@ -178,14 +214,14 @@ namespace kamii
         SDL_SetRenderDrawColor(instance->renderer, color.r, color.g, color.b, color.a);
     }
 
-    // Draw rectangle with given position, scale and color
-    void DrawRectangle(Vector2D position, Vector2D scale, Color color)
+    // Draw rectangle with given position, size and color
+    void DrawRectangle(Vector2D position, Vector2D size, Color color)
     {
         SDL_Rect rect;
         rect.x = position.x;
         rect.y = position.y;
-        rect.w = scale.x;
-        rect.h = scale.y;
+        rect.w = size.x;
+        rect.h = size.y;
 
         SDL_SetRenderDrawColor(instance->renderer, color.r, color.g, color.b, color.a);
         SDL_RenderFillRect(instance->renderer, &rect);
@@ -279,15 +315,5 @@ namespace kamii
     void PlaySoundInLoop()
     {
 
-    }
-
-    // Mouse functions ----------------------------------------------------------------------------------------------------------------------------------
-
-    Vector2D GetMousePosition()
-    {
-        SDL_PumpEvents();
-        int x, y;
-        Uint32 mouseState = SDL_GetMouseState(&x, &y);
-        return Vector2D(x, y);
     }
 }
