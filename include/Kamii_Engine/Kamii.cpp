@@ -39,6 +39,7 @@ namespace kamii
     {
         instance->window = SDL_CreateWindow("", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN);
         instance->renderer = SDL_CreateRenderer(instance->window, -1, SDL_RENDERER_ACCELERATED);
+        SDL_RenderSetLogicalSize(instance->renderer, width, height);
 
         isRunning = true;
     }
