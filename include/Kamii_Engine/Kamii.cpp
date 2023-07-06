@@ -167,7 +167,6 @@ namespace kamii
     // Load sound from given path
     Audio *LoadAudio(const char *path)
     {
-        // TODO: HERE
         Mix_Chunk *audio = Mix_LoadWAV(path);
         return audio;
     }
