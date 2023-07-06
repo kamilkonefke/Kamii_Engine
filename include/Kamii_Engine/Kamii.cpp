@@ -301,14 +301,48 @@ namespace kamii
 
     // Audio functions ----------------------------------------------------------------------------------------------------------------------------------
 
+    // Play sound
     void PlaySound(Audio *audio, float angle, float distance)
     {
         Mix_SetPosition(-1, angle, distance);
         Mix_PlayChannel(-1, audio, 0);
     }
 
+    // Play sound in loop
     void PlaySoundInLoop(Audio *audio)
     {
         Mix_PlayChannel(-1, audio, -1);
+    }
+
+    // Collision ------------------------------------------------------------------------------------------------------------------------------------
+
+    // Check is mouse collides to given rect
+    bool IsMouseColliding(Rect rect)
+    {
+        Vector2D mousePosition = GetMousePosition();
+        if(mousePosition.x > rect.x + rect.w || mousePosition.x < rect.x || mousePosition.y > rect.y + rect.h || mousePosition.y < rect.y)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    // Check collision between two rects
+    bool IsColliding(Rect rect_A, Rect rect_B)
+    {
+        SDL_Rect rect_AA = {rect_A.x, rect_A.y, rect_A.w, rect_A.h};
+        SDL_Rect rect_BB = {rect_B.x, rect_B.y, rect_B.w, rect_B.h};
+
+        if(SDL_HasIntersection(&rect_AA, &rect_BB))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

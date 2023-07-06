@@ -17,6 +17,11 @@ namespace kamii
     typedef SDL_Texture Texture;
     typedef Mix_Chunk Audio;
 
+    typedef struct Rect{
+        int x,y;
+        int w,h;
+    } Rect;
+
     class KamiiEngine
     {
         public:
@@ -67,11 +72,14 @@ namespace kamii
     void DrawLine(Vector2D start, Vector2D end, Color color);
     void DrawTexture(Vector2D position, float angle, Vector2D scale, Texture *texture);
     void DrawText(Vector2D position, std::string text, Color color, Font *font);
-    void DrawText(Vector2D position, int text, Color color, Font *font);
     void DrawText(Vector2D position, float text, Color color, Font *font);
+    void DrawText(Vector2D position, int text, Color color, Font *font);
 
     void PlaySound(Audio *audio, float angle, float distance);
     void PlaySoundInLoop(Audio *audio);
+
+    bool IsColliding(Rect rect_A, Rect rect_B);
+    bool IsMouseColliding(Rect rect);
     
     extern float deltaTime;
     extern bool isRunning;
