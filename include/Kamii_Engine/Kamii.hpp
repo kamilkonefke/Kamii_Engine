@@ -24,12 +24,13 @@ namespace kamii
             SDL_Renderer *renderer = nullptr;
 
             bool isFullscreen = false;
-            float FPS = 60;
+            
             SDL_Event event;
-            Uint32 currentTime = SDL_GetTicks();
-            Uint32 previousTime = currentTime;
+
+            float FPS;
+            Uint32 frameStart;
+            int frameTime;
             float deltaTime = 0.0f;
-            const float frameDelay = 1000.0f / FPS;
 
             // Input
             std::unordered_map<SDL_Keycode, bool> keyStates;
@@ -41,7 +42,6 @@ namespace kamii
     void CloseWindow();
     void CreateWindow(int width, int height);
     void SetWindowTitle(const char *title);
-    void SetFramerate(float fps);
 
     void HandleEvents();
     bool IsKeyDown(SDL_Keycode keyName);
@@ -73,6 +73,7 @@ namespace kamii
     void PlaySound(Audio *audio, float angle, float distance);
     void PlaySoundInLoop(Audio *audio);
     
+    extern float deltaTime;
     extern bool isRunning;
     extern KamiiEngine* instance;
 }

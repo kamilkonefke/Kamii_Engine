@@ -4,6 +4,7 @@
 namespace kamii
 {
     bool isRunning = false;
+    float deltaTime = 0.0f;
     KamiiEngine* instance = nullptr;
 
     // Init systems and engine
@@ -39,6 +40,7 @@ namespace kamii
     {
         instance->window = SDL_CreateWindow("", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_SHOWN);
         instance->renderer = SDL_CreateRenderer(instance->window, -1, SDL_RENDERER_ACCELERATED);
+        SDL_RenderSetVSync(instance->renderer, 1); // Vsync default
         SDL_RenderSetLogicalSize(instance->renderer, width, height);
 
         isRunning = true;
@@ -50,23 +52,13 @@ namespace kamii
         SDL_SetWindowTitle(instance->window, title);
     }
 
-    // Cap fps with given value
-    void SetFramerate(float fps)
-    {
-        instance->FPS = fps;
-    }
-
     // Input handling core functions -----------------------------------------------------------------------------------------------------------------------------------
 
     // Handle all functions like input, quit, minimalize etc..
     void HandleEvents()
     {
         // Frame handling 
-        instance->previousTime = instance->currentTime;
-        instance->currentTime = SDL_GetTicks();
-        instance->deltaTime = (instance->currentTime - instance->previousTime) / 1000.0f;
-
-        instance->previousKeyStates = instance->keyStates;
+        instance->frameStart = SDL_GetTicks();
 
         SDL_Event event;
         while(SDL_PollEvent(&event))
@@ -206,10 +198,8 @@ namespace kamii
         SDL_RenderPresent(instance->renderer);
         
         // Frame handling #2
-        Uint32 frameTime = SDL_GetTicks() - instance->currentTime;
-        if(instance->frameDelay > frameTime) {
-            SDL_Delay(instance->frameDelay - frameTime);
-        }
+        instance->frameTime = SDL_GetTicks() - instance->frameStart;
+        deltaTime = instance->frameTime / 1000.0f; // Czas między klatkami w sekundach
     }
 
     // Set background with given color
